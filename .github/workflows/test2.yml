@@ -4,8 +4,8 @@ on:
   pull_request:
     branches: [master]
     types:
-      - closed
-      
+      - opened
+
 jobs:
   test:
     runs-on: ubuntu-latest
