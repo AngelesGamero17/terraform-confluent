@@ -2,8 +2,7 @@ name: test project0
 
 on:
   pull_request:
-    branches:
-      - master
+    branches: [master] 
     types: [opened , reopened]
 
 jobs:
