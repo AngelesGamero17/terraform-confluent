@@ -1,7 +1,11 @@
 name: test project0
 
-on: push
-
+on:
+  pull_request:
+    branches: [master]
+    types:
+      - closed
+      
 jobs:
   test:
     runs-on: ubuntu-latest
