@@ -1,9 +1,6 @@
 name: test project0
 
-on:
-  pull_request:
-    branches: [master] 
-    types: [opened , reopened]
+on: push
 
 jobs:
   test:
