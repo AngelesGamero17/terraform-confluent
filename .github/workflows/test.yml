@@ -24,4 +24,6 @@ jobs:
       - name: Update Commit Status
         uses: ouzi-dev/commit-status-updater@v2
         with:
-          terraform_version: 1.6.6
+          token: ${{ secrets.SECRET}}
+          status: success  
+          description: Terraform applied successfully
