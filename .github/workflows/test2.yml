@@ -24,7 +24,8 @@ jobs:
 
     steps:
       - name: imprimir
-        run: "echo AWS_ACCESS_KEY_ID"
+        run: echo ${{ AWS_ACCESS_KEY_ID }}
+        
       - name: Get code
         uses: actions/checkout@v4
 
