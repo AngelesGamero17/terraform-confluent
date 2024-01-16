@@ -1,4 +1,3 @@
-
 resource "confluent_kafka_topic" "topic_ood_0" {
   kafka_cluster {
     id = "lkc-w2oxdg"
