@@ -2,7 +2,6 @@ terraform {
     backend "s3" {
     key    = "cc/terraform.tfstate"
     bucket = "iac-cc"
-    region = "us-east-1"
     dynamodb_table = "iac-cc"
   }
   required_providers {
