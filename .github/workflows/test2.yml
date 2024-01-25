@@ -2,7 +2,7 @@ name: test project0
 
 on:
   pull_request:
-    branches: [master]
+    branches: [dev]
     types:
       - opened
 

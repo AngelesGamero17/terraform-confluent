@@ -1,9 +1,5 @@
 terraform {
-    backend "s3" {
-    key    = "cc/terraform.tfstate"
-    bucket = "iac-cc"
-    dynamodb_table = "iac-cc"
-  }
+   
   required_providers {
     confluent = {
       source = "confluentinc/confluent"
