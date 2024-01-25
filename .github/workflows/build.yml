@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - dev
+      - feacture
   pull_request:
     types: [opened, synchronize, reopened]
 
