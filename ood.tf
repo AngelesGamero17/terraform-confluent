@@ -1,8 +1,8 @@
-resource "confluent_kafka_topic" "topic_ood_0" {
+resource "confluent_kafka_topic" "topic_ood_1" {
   kafka_cluster {
     id = "lkc-w2oxdg"
   }
-  topic_name         = "topic_ood_0"
+  topic_name         = "topic_ood_1"
   rest_endpoint      = "https://pkc-4r087.us-west2.gcp.confluent.cloud:443"
   partitions_count = 2
   credentials {
