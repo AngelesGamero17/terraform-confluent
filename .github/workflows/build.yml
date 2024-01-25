@@ -2,7 +2,9 @@ on:
   # Trigger analysis when pushing to your main branches, and when creating a pull request.
   push:
     branches:
-      - feacture
+      - dev
+  pull_request:
+      types: [opened, synchronize, reopened]
 
 name: Main Workflow
 jobs:
