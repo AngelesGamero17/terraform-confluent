@@ -1,26 +1,24 @@
 on:
-  # Trigger analysis when pushing to your main branches, and when creating a pull request.
   push:
     branches:
       - dev
   pull_request:
-      types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened]
 
 name: Main Workflow
 jobs:
   sonarqube:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.5.1
+      - run: docker-compose up -d
 
-    - uses: actions/checkout@v3
-    - uses: isbang/compose-action@v1.5.1
-    - run: docker-compose up -d
-
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
