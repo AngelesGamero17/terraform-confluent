@@ -19,17 +19,12 @@ jobs:
         uses: isbang/compose-action@v1.5.1
         with:
           compose-file: "/docker-compose.yml"
+        
+      - name: Ejecutar docker-compose up
+        run: docker-compose -f docker-compose.yml up -d
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        with:
-          args: >
-            -Dsonar.projectKey=prueba10
-            -Dsonar.sources=.
-            -Dsonar.qualitygate.wait=true
-
-      - name: Teardown
-        run: docker-compose down
