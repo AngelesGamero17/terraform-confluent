@@ -25,9 +25,6 @@ jobs:
         with:
           compose-file: "./docker/docker-compose.yml"
 
-      - name: Wait for SonarQube to be ready
-        run: ./wait-for-it.sh ${{ secrets.SONAR_HOST_URL }}:9000 -t 30
-
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@master
         env:
