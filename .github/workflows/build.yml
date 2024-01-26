@@ -20,9 +20,6 @@ jobs:
           fetch-depth: 0  
 
       - name: Ejecutar docker-compose up
-        run: docker-compose -f docker-compose.yml up -d
-
-      - uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          docker-compose -f docker-compose.yml up -d > docker-compose-output.log 2>&1
+          cat docker-compose-output.log
