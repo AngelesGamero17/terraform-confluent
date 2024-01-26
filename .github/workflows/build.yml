@@ -1,22 +1,41 @@
 on:
-  # Trigger analysis when pushing to your main branches, and when creating a pull request.
   push:
     branches:
       - dev
   pull_request:
-      types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened]
 
 name: Main Workflow
 jobs:
   sonarqube:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        # Disabling shallow clones is recommended for improving the relevancy of reporting
-        fetch-depth: 0
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Download and make executable wait-for-it.sh
+        run: |
+          curl -L https://github.com/vishnubob/wait-for-it/releases/download/v1.11.0/wait-for-it.sh -o wait-for-it.sh
+          chmod +x wait-for-it.sh
+
+      - name: Docker Compose
+        uses: isbang/compose-action@v1.5.1
+        with:
+          compose-file: "./docker/docker-compose.yml"
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          GITHUB_SHA: ${{ github.sha }}
+        with:
+          args: >
+            -Dsonar.projectKey=prueba10
+            -Dsonar.sources=.
+            -Dsonar.qualitygate.wait=true
+
+      - name: Teardown
+        run: docker-compose down
