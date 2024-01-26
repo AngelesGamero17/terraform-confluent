@@ -17,7 +17,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  
+          fetch-depth: 0  # Las clonaciones superficiales deben desactivarse para una mejor relevancia del análisis
+
+      - name: Cambiar al directorio del proyecto
+        run: cd /__w/terraform-confluent/terraform-confluent
 
       - name: Ejecutar composer install
         run: composer install
