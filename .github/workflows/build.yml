@@ -1,22 +1,28 @@
+name: Build
+
 on:
-  # Trigger analysis when pushing to your main branches, and when creating a pull request.
   push:
     branches:
-      - dev
-  pull_request:
-      types: [opened, synchronize, reopened]
+      - master
 
-name: Main Workflow
 jobs:
-  sonarqube:
+  build:
+    name: Build
     runs-on: ubuntu-latest
+
+    container:
+      image: composer:latest
+
+    permissions: read-all
     steps:
-    - uses: actions/checkout@v3
-      with:
-        # Disabling shallow clones is recommended for improving the relevancy of reporting
-        fetch-depth: 0
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  
+
+      - name: Ejecutar docker-compose up
+        run: docker-compose -f docker-compose.yml up -d
+
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
